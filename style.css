@@ -1,0 +1,90 @@
+body {
+    background-color: rgb(9, 9, 54);
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+    font-size: 3em;
+    font-weight: 700;
+    color: white;
+    margin-top: 40px;
+}
+
+.container {
+    margin: 50px auto;
+    max-width: 800px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    align-items: flex-start;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 10px 30px 30px rgb(6, 6, 58);
+    gap: 10px;
+}
+
+.labels {
+    font-size: 1.3em;
+    font-weight: 500;
+}
+
+input {
+    font-size: 1.2em;
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button {
+    font-size: 1.2em;
+    background-color: rgb(9, 9, 54);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: white;
+    color: rgb(9, 9, 54);
+    border: 1px solid rgb(9, 9, 54);
+    cursor: pointer;
+}
+
+.table {
+    background-color: white;
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #00008B;
+    padding: 12px;
+    font-size: 1em;
+    text-align: center;
+}
+
+th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+tfoot td {
+    font-size: 1.1em;
+    font-weight: bold;
+    background-color: #e0e0e0;
+}
