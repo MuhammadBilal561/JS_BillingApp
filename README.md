@@ -1,10 +1,10 @@
-🧾 Billing Application – Simple JS Project
+## 🧾 Billing Application – Simple JS Project
 This is a browser-based Billing Application built using HTML, CSS, and JavaScript. It allows users to input product details (name, price, and quantity) and calculates both the individual total and the grand total dynamically.
 
-📌 Features
+## 📌 Features
 Add unlimited products with name, price, and quantity
 
-Calculates and displays:
+## Calculates and displays:
 
 Item-wise total
 
@@ -16,20 +16,11 @@ Real-time updates without page refresh
 
 Form validation to prevent incorrect inputs
 
-🎯 Purpose
+## 🎯 Purpose
 Built this project during my summer break after 1st semester of Computer Science at UET Lahore to practice core frontend skills and DOM manipulation using vanilla JavaScript.
 
-💡 Technologies Used
-HTML5
 
-CSS3
-
-JavaScript (ES6)
-
-🖼️ Preview
-(Include screenshots or GIF if available)
-
-🚀 How to Run
+## 🚀 How to Run
 Clone or download the repo
 
 Open index.html in your browser
