@@ -3,49 +3,267 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Billing Application</title>
+    <meta
+      name="description"
+      content="Nexus Billing - a modern browser-based invoicing application"
+    />
+    <title>Nexus Billing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>Billing Application</h1>
+    <div class="page">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z" />
+              <path d="M8 7h8M8 11h8M8 15h5" />
+            </svg>
+          </div>
+          <div class="brand-text">
+            <h1>Nexus Billing</h1>
+            <p>Professional invoicing, made simple</p>
+          </div>
+        </div>
+        <div class="topbar-actions no-print">
+          <button type="button" class="btn" id="historyBtn">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /><path d="M12 7v5l4 2" /></svg>
+            History
+            <span class="badge" id="historyCount">0</span>
+          </button>
+          <button type="button" class="btn" id="exportBtn">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><path d="M7 10l5 5 5-5" /><path d="M12 15V3" /></svg>
+            Export
+          </button>
+          <button type="button" class="btn" id="newInvoiceBtn">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14" /></svg>
+            New Invoice
+          </button>
+          <button type="button" class="btn" id="saveInvoiceBtn">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z" /><path d="M17 21v-8H7v8" /><path d="M7 3v5h8" /></svg>
+            Save
+          </button>
+          <button type="button" class="btn btn-primary" id="printBtn">
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7" /><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" /><path d="M6 14h12v8H6z" /></svg>
+            Print
+          </button>
+        </div>
+      </header>
 
-    <div class="container">
-      <div class="card">
-        <label for="productName" class="labels">Enter Product Name</label>
-        <input type="text" id="productName" />
+      <section class="dashboard no-print">
+        <div class="page-head">
+          <div>
+            <p class="eyebrow">Billing Overview</p>
+            <h2 class="page-title" id="greeting">Welcome back</h2>
+            <p class="page-sub">Create, manage, and export professional invoices in seconds.</p>
+          </div>
+          <p class="head-date" id="todayLabel"></p>
+        </div>
+        <div class="stats">
+          <div class="stat-card">
+            <span class="stat-label">Draft Total</span>
+            <span class="stat-value" id="statDraftTotal">PKR 0.00</span>
+            <span class="stat-hint">current invoice</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Line Items</span>
+            <span class="stat-value" id="statItems">0</span>
+            <span class="stat-hint">products &amp; services</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Saved Invoices</span>
+            <span class="stat-value" id="statArchive">0</span>
+            <span class="stat-hint">in your history</span>
+          </div>
+          <div class="stat-card accent">
+            <span class="stat-label">Total Billed</span>
+            <span class="stat-value" id="statBilled">PKR 0.00</span>
+            <span class="stat-hint">across all invoices</span>
+          </div>
+        </div>
+      </section>
 
-        <label for="productPrice" class="labels">Enter Product Price</label>
-        <input type="number" id="productPrice" />
+      <main class="layout">
+        <section class="col-left">
+          <div class="card">
+            <div class="card-head">
+              <h2>
+                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
+                Invoice Details
+              </h2>
+              <div class="meta-line">
+                <span class="pill">#<span id="invNumber">Draft</span></span>
+                <span class="meta-date" id="invDate"></span>
+              </div>
+            </div>
+            <div class="grid-meta">
+              <label>
+                Customer name
+                <input type="text" id="customerName" autocomplete="name" placeholder="e.g. Sarah Ahmed" />
+              </label>
+              <label>
+                Email
+                <input type="email" id="customerEmail" autocomplete="email" placeholder="sarah@example.com" />
+              </label>
+              <label class="span2">
+                Billing address
+                <input type="text" id="customerAddress" autocomplete="street-address" placeholder="Address, City, Country" />
+              </label>
+            </div>
+          </div>
 
-        <label for="productQuantity" class="labels"
-          >Enter Product Quantity</label
-        >
-        <input type="number" id="productQuantity" />
+          <div class="card">
+            <div class="card-head">
+              <h2>
+                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" /><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" /></svg>
+                Add Items
+              </h2>
+            </div>
+            <form id="itemForm" class="item-form" novalidate>
+              <label>
+                Product
+                <input type="text" id="itemName" placeholder="Product or service" />
+              </label>
+              <label>
+                Price (<abbr title="Pakistani Rupee">PKR</abbr>)
+                <input type="number" id="itemPrice" min="0" step="0.01" placeholder="0.00" />
+              </label>
+              <label>
+                Qty
+                <input type="number" id="itemQty" min="1" step="1" value="1" />
+              </label>
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary" id="addItemBtn">
+                  <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14" /></svg>
+                  Add Item
+                </button>
+                <button type="button" class="btn btn-ghost" id="cancelEditBtn" hidden>Cancel</button>
+              </div>
+            </form>
+            <p class="error" id="itemError" role="alert" hidden></p>
+          </div>
 
-        <button type="submit" onclick="addProducts()">Calculate</button>
-      </div>
+          <div class="card">
+            <div class="card-head">
+              <h2>
+                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18" /><path d="M18 17V9M13 17V5M8 17v-3" /></svg>
+                Invoice Items
+              </h2>
+              <span class="pill" id="itemCount">0 items</span>
+            </div>
+            <div class="table-wrap">
+              <table class="items-table">
+                <thead>
+                  <tr>
+                    <th>Product</th>
+                    <th class="num">Price</th>
+                    <th class="num">Qty</th>
+                    <th class="num">Amount</th>
+                    <th class="num">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="itemsBody"></tbody>
+              </table>
+              <div class="empty" id="emptyState" hidden>
+                <svg class="empty-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18" /><path d="M18 17V9M13 17V5M8 17v-3" /></svg>
+                <p><strong>No items yet</strong><br />Add your first product above to build the invoice.</p>
+              </div>
+            </div>
+          </div>
+        </section>
 
-      <div class="table">
-        <table>
-          <thead>
-            <tr>
-              <th>Product Name</th>
-              <th>Product Price</th>
-              <th>Product Quantity</th>
-              <th>Total</th>
-            </tr>
-          </thead>
-          <tbody id="resultBody"></tbody>
-          <tfoot>
-            <tr>
-              <td colspan="3"><strong>Grand Total</strong></td>
-              <td id="GrandTotal"><strong>0.00 PKR</strong></td>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
+        <aside class="col-right">
+          <div class="card summary-card">
+            <div class="card-head">
+              <h2>
+                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg>
+                Summary
+              </h2>
+            </div>
+            <div class="summary-rows">
+              <div class="row">
+                <span id="subtotalLabel">Subtotal</span>
+                <span class="num" id="subtotal">PKR 0.00</span>
+              </div>
+              <div class="row">
+                <span id="discountLabel">Discount</span>
+                <span class="num" id="discountAmount">PKR 0.00</span>
+              </div>
+              <div class="row">
+                <span id="taxLabel">Tax</span>
+                <span class="num" id="taxAmount">PKR 0.00</span>
+              </div>
+              <div class="row">
+                <span>Shipping</span>
+                <span class="num" id="shippingAmount">PKR 0.00</span>
+              </div>
+              <div class="row total">
+                <span>Grand Total</span>
+                <span class="num" id="grandTotal">PKR 0.00</span>
+              </div>
+            </div>
+
+            <div class="adjust">
+              <label>
+                Discount
+                <div class="input-group">
+                  <input type="number" id="discountValue" min="0" step="0.01" value="0" />
+                  <select id="discountType" aria-label="Discount type">
+                    <option value="percent">%</option>
+                    <option value="fixed">PKR</option>
+                  </select>
+                </div>
+              </label>
+              <label>
+                Tax
+                <div class="input-group">
+                  <input type="number" id="taxValue" min="0" step="0.01" value="0" />
+                  <select id="taxType" aria-label="Tax type">
+                    <option value="percent">%</option>
+                    <option value="fixed">PKR</option>
+                  </select>
+                </div>
+              </label>
+              <label>
+                Shipping (PKR)
+                <input type="number" id="shippingValue" min="0" step="0.01" value="0" />
+              </label>
+            </div>
+
+            <label>
+              Notes
+              <textarea id="notes" rows="3" placeholder="Payment terms, thanks note, etc."></textarea>
+            </label>
+          </div>
+        </aside>
+      </main>
+
+      <footer class="page-foot no-print">
+        <p>Your draft autosaves in this browser. Use "Save Invoice" to keep it in history and "Print" for a paper-ready invoice.</p>
+      </footer>
     </div>
 
-    <script src="script.js"></script>
+    <div class="drawer-overlay" id="drawerOverlay" hidden></div>
+    <aside class="drawer" id="historyDrawer" aria-hidden="true">
+      <div class="drawer-head">
+        <h2>Invoice History</h2>
+        <button type="button" class="icon-btn" id="closeDrawerBtn" aria-label="Close history">×</button>
+      </div>
+      <ul id="historyList" class="history-list"></ul>
+      <div class="empty" id="historyEmpty" hidden>
+        <svg class="empty-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /><path d="M12 7v5l4 2" /></svg>
+        <p><strong>No saved invoices yet</strong><br />Your archived invoices will appear here.</p>
+      </div>
+    </aside>
+
+    <div id="toastRegion" class="toast-region" aria-live="polite"></div>
+
+    <script type="module" src="js/app.js"></script>
   </body>
 </html>
